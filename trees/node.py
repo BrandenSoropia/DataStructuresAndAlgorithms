@@ -39,3 +39,10 @@ class Node:
 
     def __str__(self):
         return "Value: " + str(self.get_value()) + " Parent: " + str(self.parent) + " Left: " + str(self.left) + " Right: " + str(self.right)
+
+def create_nodes(values):
+    nodes = []
+    for value in values:
+        nodes.append(Node(value))
+
+    return nodes
