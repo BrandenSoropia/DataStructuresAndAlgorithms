@@ -4,11 +4,12 @@ import argparse
 from node import *
 
 class BinarySearchTree:
-    def __init__(self, nodes: 'list of Nodes'):
+    def __init__(self, nodes=None):
         self.root = None
 
-        for node in nodes:
-            self.insert(node)
+        if nodes is not None:
+            for node in nodes:
+                self.insert(node)
 
     def get_root(self):
         return self.root
@@ -23,7 +24,6 @@ class BinarySearchTree:
 
     def _insert(self, root: Node, new_node: Node):
         # pdb.set_trace()
-
         if new_node.get_value() <= root.get_value(): # Less than or equal to root, insert new_node to left
             if not root.has_left():
                 root.set_left(new_node)
