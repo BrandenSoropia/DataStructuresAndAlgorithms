@@ -40,6 +40,9 @@ class Node:
     def __str__(self):
         return "Value: " + str(self.get_value()) + " Parent: " + str(self.parent) + " Left: " + str(self.left) + " Right: " + str(self.right)
 
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
 def create_nodes(values):
     nodes = []
     for value in values:

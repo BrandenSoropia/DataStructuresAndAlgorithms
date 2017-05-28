@@ -7,7 +7,7 @@ def is_leaf_node(node):
 
 class TestBinarySearchTree(unittest.TestCase):
 
-    #Initiate empty BST
+    """__init__ and insert tests"""
     def test_initiate_empty_bst(self):
         bst = BinarySearchTree()
 
@@ -182,6 +182,60 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(root_right_child.get_right().get_value(), 3)
         self.assertTrue(is_leaf_node(root_right_child.get_right()))
         self.assertEqual(root_right_child.get_right().get_parent(), root_right_child)
+
+    """BFS Test"""
+    def test_bfs_empty_bst(self):
+        bst = BinarySearchTree()
+
+        self.assertIsNone(bst.bfs(1))
+
+    def test_bfs_size_one_bst_when_target_is_root(self):
+        new_node = Node(1)
+        bst = BinarySearchTree([new_node])
+
+        self.assertEqual(bst.bfs(1), new_node)
+
+    def test_bfs_size_three_bst_with_root_left_child_target(self):
+        new_nodes = create_nodes([2, 1, 3])
+        bst = BinarySearchTree(new_nodes)
+
+        self.assertEqual(bst.bfs(1), new_nodes[1])
+
+    def test_bfs_size_three_bst_with_root_right_child_target(self):
+        new_nodes = create_nodes([2, 1, 3])
+        bst = BinarySearchTree(new_nodes)
+
+        self.assertEqual(bst.bfs(3), new_nodes[2])
+
+    def test_bfs_with_left_only_children_bst_with_depth_2_target(self):
+        new_nodes = create_nodes([3, 2, 1])
+        bst = BinarySearchTree(new_nodes)
+
+        self.assertEqual(bst.bfs(1), new_nodes[2])
+
+    def test_bfs_with_right_only_children_bst_with_depth_2_target(self):
+        new_nodes = create_nodes([1, 2, 3])
+        bst = BinarySearchTree(new_nodes)
+
+        self.assertEqual(bst.bfs(3), new_nodes[2])
+
+    def test_bfs_with_target_being_right_child_of_root_left_child(self):
+        new_nodes = create_nodes([3, 1, 2])
+        bst = BinarySearchTree(new_nodes)
+
+        self.assertEqual(bst.bfs(2), new_nodes[2])
+
+    def test_bfs_with_target_being_left_child_of_root_right_child(self):
+        new_nodes = create_nodes([1, 3, 2])
+        bst = BinarySearchTree(new_nodes)
+
+        self.assertEqual(bst.bfs(2), new_nodes[2])
+
+    """delete tests"""
+    # def test_delete_node_empty_bst(self):
+    #
+    # def test_delete_size_one_bst(self):
+
 
 if __name__ == '__main__':
     unittest.main()

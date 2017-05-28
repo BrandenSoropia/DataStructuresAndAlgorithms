@@ -37,6 +37,41 @@ class BinarySearchTree:
             else:
                 return self._insert(root.get_right(), new_node)
 
+    def get_node_children(self, node: Node) -> list:
+        children = []
+        if node.has_left():
+            children.append(node.get_left())
+
+        if node.has_right():
+            children.append(node.get_right())
+
+        return children
+
+    # Return first node matching given target_value. Otherwise return None if none found
+    def bfs(self, target_value):
+        if self.root is None:
+            return None
+
+        if self.root.get_value() == target_value:
+            return self.root
+
+        nodes_to_check = self.get_node_children(self.root)
+
+        return self._bfs(nodes_to_check, target_value)
+
+    def _bfs(self, nodes_to_check: 'list of Nodes', target_value):
+        if len(nodes_to_check) == 0: # Failed to find target_value
+            return None
+
+        new_nodes_to_check = []
+        for node in nodes_to_check: # Check nodes in next depth
+            if node.get_value() == target_value:
+                return node
+            else:
+                new_nodes_to_check.extend(self.get_node_children(node))
+
+        return self._bfs(new_nodes_to_check, target_value)
+
 if __name__ == "__main__":
 
     # Parse terminal command for values list
